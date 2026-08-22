@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HRMS - Employees</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    min-height:100vh;
+}
+
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    background:white;
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    padding:25px 15px;
+    border-right:1px solid #e5e7eb;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.logo h2{
+    color:#2563eb;
+    font-size:28px;
+}
+
+.logo p{
+    color:#888;
+    font-size:10px;
+}
+
+.menu-title{
+    font-size:11px;
+    color:#999;
+    margin:18px 12px 10px;
+}
+
+.menu a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 15px;
+    margin-bottom:5px;
+    color:#555;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:14px;
+}
+
+.menu a:hover,
+.menu a.active{
+    background:#2563eb;
+    color:white;
+}
+
+.logout{
+    position:absolute;
+    bottom:25px;
+    left:15px;
+    right:15px;
+}
+
+.logout a{
+    display:flex;
+    gap:12px;
+    padding:13px 15px;
+    color:#ef4444;
+    text-decoration:none;
+}
+
+
+/* MAIN */
+
+.main{
+    margin-left:250px;
+    padding:30px;
+}
+
+
+/* HEADER */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.header h1{
+    font-size:25px;
+    color:#1e293b;
+}
+
+.header p{
+    font-size:13px;
+    color:#777;
+    margin-top:5px;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.notification{
+    width:40px;
+    height:40px;
+    background:white;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    background:#2563eb;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
+}
+
+
+/* ACTION BAR */
+
+.action-bar{
+    background:white;
+    padding:18px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+.search{
+    width:350px;
+    padding:11px 15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    outline:none;
+}
+
+.add-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:11px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.add-btn:hover{
+    background:#1d4ed8;
+}
+
+
+/* TABLE */
+
+.table-box{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    overflow-x:auto;
+}
+
+.table-title{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.table-title h2{
+    font-size:17px;
+}
+
+.table-title span{
+    color:#888;
+    font-size:12px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
+}
+
+th{
+    background:#f8fafc;
+    color:#777;
+    font-size:12px;
+    text-align:left;
+    padding:14px 10px;
+}
+
+td{
+    padding:14px 10px;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+}
+
+.emp{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.emp-avatar{
+    width:38px;
+    height:38px;
+    background:#dbeafe;
+    color:#2563eb;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
+}
+
+.emp-name{
+    font-weight:500;
+}
+
+.emp-email{
+    font-size:10px;
+    color:#999;
+}
+
+.department{
+    background:#eff6ff;
+    color:#2563eb;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:10px;
+}
+
+.status{
+    background:#dcfce7;
+    color:#15803d;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:10px;
+}
+
+.actions{
+    display:flex;
+    gap:5px;
+}
+
+.view,
+.edit,
+.delete{
+    border:none;
+    padding:7px 9px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.view{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.edit{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.delete{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:70px;
+    }
+
+    .logo p,
+    .menu-title,
+    .menu a span,
+    .logout span{
+        display:none;
+    }
+
+    .main{
+        margin-left:70px;
+    }
+
+    .action-bar{
+        flex-direction:column;
+        gap:15px;
+        align-items:stretch;
+    }
+
+    .search{
+        width:100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <h2>HRMS</h2>
+
+        <p>Human Resource Management System</p>
+
+    </div>
+
+
+    <div class="menu">
+
+        <p class="menu-title">
+            Main Menu
+        </p>
+
+
+        <a href="dashboard.html">
+            🏠
+            <span>Dashboard</span>
+        </a>
+
+
+        <a href="employees.html" class="active">
+            👥
+            <span>Employees</span>
+        </a>
+
+
+        <a href="departments.html">
+            🏢
+            <span>Departments</span>
+        </a>
+
+
+        <a href="attendance.html">
+            📅
+            <span>Attendance</span>
+        </a>
+
+
+        <a href="leaves.html">
+            📝
+            <span>Leave Requests</span>
+        </a>
+
+
+        <a href="payroll.html">
+            💰
+            <span>Payroll</span>
+        </a>
+
+
+        <p class="menu-title">
+            Others
+        </p>
+
+
+        <a href="reports.html">
+            📊
+            <span>Reports</span>
+        </a>
+
+
+        <a href="settings.html">
+            ⚙️
+            <span>Settings</span>
+        </a>
+
+    </div>
+
+
+    <div class="logout">
+
+        <a href="../login.html">
+            🚪
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>Employees</h1>
+
+            <p>
+                Manage all employees in your organization.
+            </p>
+
+        </div>
+
+
+        <div class="profile">
+
+            <div class="notification">
+                🔔
+            </div>
+
+            <div class="avatar">
+                A
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ACTION BAR -->
+
+    <div class="action-bar">
+
+        <input
+            type="text"
+            id="search"
+            class="search"
+            placeholder="🔍 Search employee..."
+            onkeyup="searchEmployee()"
+        >
+
+
+        <button
+            class="add-btn"
+            onclick="addEmployee()"
+        >
+
+            + Add Employee
+
+        </button>
+
+    </div>
+
+
+
+    <!-- TABLE -->
+
+    <div class="table-box">
+
+
+        <div class="table-title">
+
+            <h2>
+                Employee List
+            </h2>
+
+            <span>
+                250 Employees
+            </span>
+
+        </div>
+
+
+        <table id="employeeTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Employee</th>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>Phone</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                <tr>
+
+                    <td>
+
+                        <div class="emp">
+
+                            <div class="emp-avatar">
+                                AK
+                            </div>
+
+                            <div>
+
+                                <div class="emp-name">
+                                    Arun Kumar
+                                </div>
+
+                                <div class="emp-email">
+                                    arun@gmail.com
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td>EMP001</td>
+
+                    <td>
+                        <span class="department">
+                            IT
+                        </span>
+                    </td>
+
+                    <td>Software Developer</td>
+
+                    <td>9876543210</td>
+
+                    <td>
+                        <span class="status">
+                            Active
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button
+                                class="view"
+                                onclick="viewEmployee('Arun Kumar')"
+                            >
+                                View
+                            </button>
+
+                            <button
+                                class="edit"
+                                onclick="editEmployee('Arun Kumar')"
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                class="delete"
+                                onclick="deleteEmployee(this,'Arun Kumar')"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+
+                <tr>
+
+                    <td>
+
+                        <div class="emp">
+
+                            <div class="emp-avatar">
+                                PS
+                            </div>
+
+                            <div>
+
+                                <div class="emp-name">
+                                    Priya S
+                                </div>
+
+                                <div class="emp-email">
+                                    priya@gmail.com
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td>EMP002</td>
+
+                    <td>
+                        <span class="department">
+                            HR
+                        </span>
+                    </td>
+
+                    <td>HR Executive</td>
+
+                    <td>9876543211</td>
+
+                    <td>
+                        <span class="status">
+                            Active
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button
+                                class="view"
+                                onclick="viewEmployee('Priya S')"
+                            >
+                                View
+                            </button>
+
+                            <button
+                                class="edit"
+                                onclick="editEmployee('Priya S')"
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                class="delete"
+                                onclick="deleteEmployee(this,'Priya S')"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+
+                <tr>
+
+                    <td>
+
+                        <div class="emp">
+
+                            <div class="emp-avatar">
+                                RM
+                            </div>
+
+                            <div>
+
+                                <div class="emp-name">
+                                    Rahul M
+                                </div>
+
+                                <div class="emp-email">
+                                    rahul@gmail.com
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td>EMP003</td>
+
+                    <td>
+                        <span class="department">
+                            Finance
+                        </span>
+                    </td>
+
+                    <td>Accountant</td>
+
+                    <td>9876543212</td>
+
+                    <td>
+                        <span class="status">
+                            Active
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button
+                                class="view"
+                                onclick="viewEmployee('Rahul M')"
+                            >
+                                View
+                            </button>
+
+                            <button
+                                class="edit"
+                                onclick="editEmployee('Rahul M')"
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                class="delete"
+                                onclick="deleteEmployee(this,'Rahul M')"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+
+                <tr>
+
+                    <td>
+
+                        <div class="emp">
+
+                            <div class="emp-avatar">
+                                DR
+                            </div>
+
+                            <div>
+
+                                <div class="emp-name">
+                                    Divya R
+                                </div>
+
+                                <div class="emp-email">
+                                    divya@gmail.com
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </td>
+
+                    <td>EMP004</td>
+
+                    <td>
+                        <span class="department">
+                            Marketing
+                        </span>
+                    </td>
+
+                    <td>Marketing Executive</td>
+
+                    <td>9876543213</td>
+
+                    <td>
+                        <span class="status">
+                            Active
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <div class="actions">
+
+                            <button
+                                class="view"
+                                onclick="viewEmployee('Divya R')"
+                            >
+                                View
+                            </button>
+
+                            <button
+                                class="edit"
+                                onclick="editEmployee('Divya R')"
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                class="delete"
+                                onclick="deleteEmployee(this,'Divya R')"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* SEARCH */
+
+function searchEmployee(){
+
+    let search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    let rows =
+        document.querySelectorAll(
+            "#employeeTable tbody tr"
+        );
+
+
+    rows.forEach(function(row){
+
+        let text =
+            row.innerText.toLowerCase();
+
+        row.style.display =
+            text.includes(search) ? "" : "none";
+
+    });
+
+}
+
+
+/* ADD EMPLOYEE */
+
+function addEmployee(){
+
+    alert("Add Employee page will be connected next.");
+
+}
+
+
+/* VIEW */
+
+function viewEmployee(name){
+
+    alert("Viewing: " + name);
+
+}
+
+
+/* EDIT */
+
+function editEmployee(name){
+
+    alert("Editing: " + name);
+
+}
+
+
+/* DELETE */
+
+function deleteEmployee(button,name){
+
+    let confirmDelete =
+        confirm(
+            "Are you sure you want to delete " + name + "?"
+        );
+
+
+    if(confirmDelete){
+
+        button.closest("tr").remove();
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>

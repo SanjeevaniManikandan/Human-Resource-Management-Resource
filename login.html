@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HRMS Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-container{
+    width:400px;
+    background:#fff;
+    padding:35px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.logo h1{
+    color:#2563eb;
+    font-size:32px;
+}
+
+.logo p{
+    color:#666;
+    font-size:14px;
+}
+
+.login-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#222;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:6px;
+    font-size:14px;
+    color:#333;
+}
+
+.input-group input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+}
+
+.input-group input:focus{
+    border-color:#2563eb;
+}
+
+.options{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+    font-size:13px;
+}
+
+.options a{
+    text-decoration:none;
+    color:#2563eb;
+}
+
+.btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.footer{
+    text-align:center;
+    margin-top:15px;
+    font-size:13px;
+    color:#666;
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="logo">
+        <h1>HRMS</h1>
+        <p>Human Resource Management System</p>
+    </div>
+
+    <h2>Login</h2>
+
+    <form action="login.php" method="POST">
+
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Enter Username" required>
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter Password" required>
+        </div>
+
+        <div class="options">
+            <label>
+                <input type="checkbox">
+                Remember Me
+            </label>
+
+            <a href="#">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn">
+            Login
+        </button>
+
+    </form>
+
+    <div class="footer">
+        © 2026 HRMS
+    </div>
+
+</div>
+
+</body>
+</html>
+
